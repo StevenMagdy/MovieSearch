@@ -1,0 +1,7 @@
+<resources>
+	<string name="app_name">MovieSearch</string>
+	<string name="search_text_hint">Find Movies and TV shows</string>
+	<string name="director_label">Director:</string>
+	<string name="stars_label">Stars:</string>
+	<string name="writers_label">Writers:</string>
+</resources>
