@@ -6,14 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 /**
  * Created by steven on 12/24/16.
@@ -27,43 +24,22 @@ public final class Utils {
 	private Utils() {
 	}
 
-	public static ArrayList<ResultItem> fetchSearchResult(String url) {
-		return extractResultFromJson(makeHttpRequest(makeUrl(url)));
+	public static ArrayList<ResultItem> fetchSearchResult(String urlString) {
+		return extractResultFromJson(makeHttpRequest(urlString));
 	}
 
-	public static JSONObject fetchItemDetails(String url) {
-		return extractDetailsFromJson(makeHttpRequest(makeUrl(url)));
+	public static JSONObject fetchItemDetails(String urlString) {
+		return extractDetailsFromJson(makeHttpRequest(urlString));
 	}
 
+	public static String makeHttpRequest(String urlString) {
 
-	public static String makeHttpRequest(URL url) {
-
+		OkHttpClient client = new OkHttpClient();
 		try {
-			HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-			httpURLConnection.connect();
-			InputStream inputStream = httpURLConnection.getInputStream();
-			StringBuilder stringBuilder = new StringBuilder();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			String line = bufferedReader.readLine();
-
-			while (line != null) {
-				stringBuilder.append(line);
-				line = bufferedReader.readLine();
-			}
-			return stringBuilder.toString();
+			Request request = new Request.Builder().url(urlString).build();
+			return client.newCall(request).execute().body().string();
 		} catch (IOException e) {
 			Log.e(LOG_TAG, "Error retrieving results", e);
-			return null;
-		}
-	}
-
-	public static URL makeUrl(String stringUrl) {
-
-		try {
-			return new URL(stringUrl);
-		} catch (MalformedURLException e) {
-			Log.e(LOG_TAG, "Error creating URL", e);
 			return null;
 		}
 	}
