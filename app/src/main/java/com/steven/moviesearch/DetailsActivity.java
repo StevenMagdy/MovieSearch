@@ -14,7 +14,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		.LoaderCallbacks<JSONObject> {
 
 	private String url = "http://www.omdbapi.com/";
-	private String itemID;
+	private String imdbID;
 	TextView titleTextView, yearTextView, ratedTextView, ratingTextView, genreTextView,
 			runtimeTextView, plotTextView;
 
@@ -22,10 +22,10 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		itemID = getIntent().getStringExtra("id");
+		imdbID = getIntent().getStringExtra("imdbID");
 		getLoaderManager().initLoader(2, null, this);
-		titleTextView = (TextView) findViewById(R.id.titleTextView);
-		yearTextView = (TextView) findViewById(R.id.yearTextView);
+		titleTextView = (TextView) findViewById(R.id.textView_year);
+		yearTextView = (TextView) findViewById(R.id.textView_year);
 		ratedTextView = (TextView) findViewById(R.id.ratedTextView);
 		ratingTextView = (TextView) findViewById(R.id.ratingTextView);
 		genreTextView = (TextView) findViewById(R.id.genreTextView);
@@ -39,7 +39,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	public Loader<JSONObject> onCreateLoader(int id, Bundle args) {
 		Uri baseUri = Uri.parse(url);
 		Uri.Builder builder = baseUri.buildUpon();
-		builder.appendQueryParameter("i", itemID);
+		builder.appendQueryParameter("i", imdbID);
 		return new DetailsLoader(this, builder.toString());
 	}
 
@@ -56,7 +56,6 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		} catch (JSONException e) {
 
 		}
-
 
 	}
 

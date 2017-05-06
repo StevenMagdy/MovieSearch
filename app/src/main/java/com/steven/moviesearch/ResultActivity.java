@@ -35,7 +35,7 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent i = new Intent(ResultActivity.this, DetailsActivity.class);
-				i.putExtra("id", list.get(position).getId());
+				i.putExtra("imdbID", list.get(position).getImdbID());
 				startActivity(i);
 			}
 		});

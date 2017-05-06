@@ -54,7 +54,18 @@ public final class Utils {
 				JSONObject jsonCurrentResultItem = jsonResultArray.getJSONObject(i);
 				String currentResultTitle = jsonCurrentResultItem.getString("Title");
 				String currentResultYear = jsonCurrentResultItem.getString("Year");
-				String currentResultType = jsonCurrentResultItem.getString("Type");
+				String currentResultType = "";
+				switch (jsonCurrentResultItem.getString("Type")) {
+					case "movie":
+						currentResultType = "Movie";
+						break;
+					case "series":
+						currentResultType = "Series";
+						break;
+					case "episode":
+						currentResultType = "Episode";
+						break;
+				}
 				String currentResultId = jsonCurrentResultItem.getString("imdbID");
 				resultArray.add(new ResultItem(currentResultTitle, currentResultYear,
 						currentResultType, currentResultId));

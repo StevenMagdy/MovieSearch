@@ -31,13 +31,11 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
 		}
 
-		TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
-		titleTextView.setText(currentResultItem.getTitle());
+		TextView titleTextView = (TextView) convertView.findViewById(R.id.textView_title_year);
+		titleTextView.setText(currentResultItem.getTitle()
+				+ " (" + currentResultItem.getYear() + ")");
 
-		TextView yearTextView = (TextView) convertView.findViewById(R.id.yearTextView);
-		yearTextView.setText(currentResultItem.getYear());
-
-		TextView typeTextView = (TextView) convertView.findViewById(R.id.typeTextView);
+		TextView typeTextView = (TextView) convertView.findViewById(R.id.textView_type);
 		typeTextView.setText(currentResultItem.getType());
 
 		return convertView;
