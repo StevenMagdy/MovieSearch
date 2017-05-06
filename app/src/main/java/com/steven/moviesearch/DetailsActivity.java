@@ -24,8 +24,8 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		setContentView(R.layout.activity_details);
 		imdbID = getIntent().getStringExtra("imdbID");
 		getLoaderManager().initLoader(2, null, this);
-		titleTextView = (TextView) findViewById(R.id.textView_year);
-		yearTextView = (TextView) findViewById(R.id.textView_year);
+		titleTextView = (TextView) findViewById(R.id.titleTextView);
+		yearTextView = (TextView) findViewById(R.id.yearTextView);
 		ratedTextView = (TextView) findViewById(R.id.ratedTextView);
 		ratingTextView = (TextView) findViewById(R.id.ratingTextView);
 		genreTextView = (TextView) findViewById(R.id.genreTextView);

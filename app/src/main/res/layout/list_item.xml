@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:minHeight="72dp"
@@ -19,8 +18,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/textView_type"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_chainStyle="packed"
-		tools:text="Logan (2017)"/>
+		app:layout_constraintVertical_chainStyle="packed"/>
 
 	<TextView
 		android:id="@+id/textView_type"
@@ -30,7 +28,6 @@
 		android:textAppearance="?android:textAppearanceSmall"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintLeft_toLeftOf="@+id/textView_title_year"
-		app:layout_constraintTop_toBottomOf="@+id/textView_title_year"
-		tools:text="Movie"/>
+		app:layout_constraintTop_toBottomOf="@+id/textView_title_year"/>
 
 </android.support.constraint.ConstraintLayout>
