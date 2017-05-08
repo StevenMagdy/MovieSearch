@@ -67,8 +67,9 @@ public final class Utils {
 						break;
 				}
 				String currentResultId = jsonCurrentResultItem.getString("imdbID");
+				String currentResultPoster = jsonCurrentResultItem.getString("Poster");
 				resultArray.add(new ResultItem(currentResultTitle, currentResultYear,
-						currentResultType, currentResultId));
+						currentResultType, currentResultId, currentResultPoster));
 			}
 			return resultArray;
 		} catch (JSONException e) {

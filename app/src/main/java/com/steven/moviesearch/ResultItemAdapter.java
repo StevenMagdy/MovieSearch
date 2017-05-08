@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,12 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 
 		TextView typeTextView = (TextView) convertView.findViewById(R.id.textView_type);
 		typeTextView.setText(currentResultItem.getType());
+
+		ImageView posterImageView = (ImageView) convertView.findViewById(R.id.imageView_poster);
+		Glide.with(getContext())
+				.load(currentResultItem.getPoster())
+				.centerCrop()
+				.into(posterImageView);
 
 		return convertView;
 	}
