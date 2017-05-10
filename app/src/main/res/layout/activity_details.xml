@@ -1,68 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/activity_details"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:padding="16dp">
+	android:layout_height="match_parent">
 
-	<LinearLayout
+	<android.support.constraint.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:orientation="vertical">
+
+		<ImageView
+			android:id="@+id/imageView_poster"
+			android:layout_width="104dp"
+			android:layout_height="144dp"
+			android:layout_marginLeft="16dp"
+			android:layout_marginTop="16dp"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
 
 		<TextView
-			android:id="@+id/titleTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:textAppearanceLarge"/>
-
-		<TextView
-			android:id="@+id/yearTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-
-		<TextView
-			android:id="@+id/ratedTextView"
+			android:id="@+id/textView_title_year"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"/>
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:textColor="@android:color/black"
+			android:textSize="32sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="@+id/imageView_poster"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintLeft_toRightOf="@+id/imageView_poster"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/imageView_poster"
+			app:layout_constraintVertical_bias="0.3"
+			app:layout_constraintVertical_chainStyle="packed"/>
 
 		<TextView
-			android:id="@+id/runtimeTextView"
+			android:id="@+id/textView_imdbRating"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="4dp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="@+id/imageView_star"
+			app:layout_constraintRight_toLeftOf="@+id/textView_imdbRating_overall"
+			app:layout_constraintTop_toTopOf="@+id/imageView_star"/>
+
+		<TextView
+			android:id="@+id/textView_imdbRating_overall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="16dp"
+			android:text="/10"
+			app:layout_constraintBottom_toBottomOf="@+id/textView_imdbRating"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/textView_imdbRating"/>
+
+		<ImageView
+			android:id="@+id/imageView_star"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="4dp"
+			android:scaleType="center"
+			android:src="@drawable/ic_star_black_24dp"
+			app:layout_constraintBottom_toBottomOf="@+id/textView_rated"
+			app:layout_constraintRight_toLeftOf="@+id/textView_imdbRating"
+			app:layout_constraintTop_toTopOf="@+id/textView_rated"/>
+
+		<TextView
+			android:id="@+id/textView_rated"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="7dp"
+			android:textSize="20sp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_title_year"
+			app:layout_constraintTop_toBottomOf="@+id/textView_title_year"/>
+
+		<TextView
+			android:id="@+id/textView_runtime_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="Runtime:"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_director"
+			app:layout_constraintTop_toBottomOf="@+id/textView_director"/>
+
+		<TextView
+			android:id="@+id/textView_runtime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_runtime_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_runtime_label"/>
+
+		<TextView
+			android:id="@+id/textView_genre"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_language"
+			app:layout_constraintTop_toBottomOf="@+id/textView_language"/>
+
+
+		<TextView
+			android:id="@+id/textView_plot"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"/>
+			android:layout_marginRight="16dp"
+			android:layout_marginTop="8dp"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintLeft_toLeftOf="@+id/imageView_poster"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView_poster"/>
 
 		<TextView
-			android:id="@+id/genreTextView"
+			android:id="@+id/textView_writer_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+			android:layout_marginTop="8dp"
+			android:text="Write(s):"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_genre"
+			app:layout_constraintTop_toBottomOf="@+id/textView_genre"/>
 
 		<TextView
-			android:id="@+id/ratingTextView"
+			android:id="@+id/textView_writer"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_writer_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_writer_label"/>
 
 		<TextView
-			android:id="@+id/plotTextView"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
+			android:id="@+id/textView_actors_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="Actors:"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_plot"
+			app:layout_constraintTop_toBottomOf="@+id/textView_plot"/>
 
-</LinearLayout>
+		<TextView
+			android:id="@+id/textView_actors"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_actors_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_actors_label"/>
+
+		<TextView
+			android:id="@+id/textView_director_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="7dp"
+			android:text="Director:"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_actors"
+			app:layout_constraintTop_toBottomOf="@+id/textView_actors"/>
+
+		<TextView
+			android:id="@+id/textView_director"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_director_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_director_label"/>
+
+		<TextView
+			android:id="@+id/textView_language_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="Language:"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_runtime"
+			app:layout_constraintTop_toBottomOf="@+id/textView_runtime"/>
+
+		<TextView
+			android:id="@+id/textView_language"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_language_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_language_label"/>
+
+	</android.support.constraint.ConstraintLayout>
+
+</ScrollView>
+
