@@ -19,7 +19,6 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 	private String url = "http://www.omdbapi.com/";
 	private TextView resultTextView;
 	private ResultItemAdapter resultItemAdapter;
-	private ArrayList<ResultItem> list;
 	private ListView listView;
 	private String searchText;
 
@@ -35,7 +34,7 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent i = new Intent(ResultActivity.this, DetailsActivity.class);
-				i.putExtra("imdbID", list.get(position).getImdbID());
+				i.putExtra("imdbID", resultItemAdapter.getItem(position).getImdbID());
 				startActivity(i);
 			}
 		});
@@ -55,9 +54,9 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 
 	@Override
 	public void onLoadFinished(Loader<ArrayList<ResultItem>> loader, ArrayList<ResultItem> data) {
+		resultItemAdapter.clear();
 		if (data != null) {
-			list = data;
-			resultItemAdapter.addAll(list);
+			resultItemAdapter.addAll(data);
 		} else {
 			resultTextView.setText("Wrong Input");
 		}
