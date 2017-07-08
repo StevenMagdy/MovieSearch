@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 		ImageView posterImageView = (ImageView) convertView.findViewById(R.id.imageView_poster);
 		Glide.with(getContext())
 				.load(currentResultItem.getPoster())
-				.centerCrop()
+				.apply(RequestOptions.centerCropTransform())
 				.into(posterImageView);
 
 		return convertView;

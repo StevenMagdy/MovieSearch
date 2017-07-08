@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,7 +68,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 			languageTextView.setText(data.getString("Language"));
 			Glide.with(this)
 					.load(data.getString("Poster"))
-					.centerCrop()
+					.apply(RequestOptions.centerCropTransform())
 					.into(posterImageView);
 
 		} catch (JSONException e) {
