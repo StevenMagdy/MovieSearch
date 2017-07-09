@@ -5,10 +5,6 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-/**
- * Created by steven on 12/25/16.
- */
-
 public class ResultLoader extends AsyncTaskLoader<ArrayList<ResultItem>> {
 
 	private String url;

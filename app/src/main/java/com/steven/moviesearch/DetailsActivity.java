@@ -5,6 +5,7 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +18,9 @@ import org.json.JSONObject;
 public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		.LoaderCallbacks<JSONObject> {
 
-	private String url = "http://www.omdbapi.com/";
+	private static final String TAG = DetailsActivity.class.getName();
+
+	private String url = "https://api.themoviedb.org/3/movie";
 	private String imdbID;
 	TextView titleYearTextView, ratedTextView, imdbRatingTextView, genreTextView,
 			runtimeTextView, plotTextView, writerTextView, actorsTextView, directorTextView,
@@ -28,7 +31,9 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		imdbID = getIntent().getStringExtra("imdbID");
+		if (getIntent().hasExtra("imdbID")) {
+			imdbID = getIntent().getStringExtra("imdbID");
+		}
 		getLoaderManager().initLoader(2, null, this);
 		titleYearTextView = (TextView) findViewById(R.id.textView_title_year);
 		ratedTextView = (TextView) findViewById(R.id.textView_rated);
@@ -48,26 +53,28 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	public Loader<JSONObject> onCreateLoader(int id, Bundle args) {
 		Uri baseUri = Uri.parse(url);
 		Uri.Builder builder = baseUri.buildUpon();
-		builder.appendQueryParameter("i", imdbID);
+		builder.appendPath(imdbID);
+		builder.appendQueryParameter("api_key", getString(R.string.theMovieDB_api_key));
+		Log.v(TAG,builder.toString());
 		return new DetailsLoader(this, builder.toString());
 	}
 
 	@Override
 	public void onLoadFinished(Loader<JSONObject> loader, JSONObject data) {
 		try {
-			String titleYear = data.getString("Title") + " (" + data.getString("Year") + ")";
+			String titleYear = data.getString("title") + " (" + data.getString("release_date") + ")";
 			titleYearTextView.setText(titleYear);
-			ratedTextView.setText(data.getString("Rated"));
-			imdbRatingTextView.setText(data.getString("imdbRating"));
-			genreTextView.setText(data.getString("Genre"));
-			runtimeTextView.setText(data.getString("Runtime"));
-			plotTextView.setText(data.getString("Plot"));
-			writerTextView.setText(data.getString("Writer"));
-			actorsTextView.setText(data.getString("Actors"));
-			directorTextView.setText(data.getString("Director"));
-			languageTextView.setText(data.getString("Language"));
+			// ratedTextView.setText(data.getString("Rated"));
+			imdbRatingTextView.setText(data.getString("vote_average"));
+			// genreTextView.setText(data.getString("Genre"));
+			runtimeTextView.setText(data.getString("runtime") + " min");
+			plotTextView.setText(data.getString("overview"));
+			// writerTextView.setText(data.getString("Writer"));
+			// actorsTextView.setText(data.getString("Actors"));
+			// directorTextView.setText(data.getString("Director"));
+			languageTextView.setText(data.getString("original_language"));
 			Glide.with(this)
-					.load(data.getString("Poster"))
+					.load("https://image.tmdb.org/t/p/w500" + data.getString("poster_path"))
 					.apply(RequestOptions.centerCropTransform())
 					.into(posterImageView);
 

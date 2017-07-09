@@ -16,7 +16,9 @@ import java.util.ArrayList;
 public class ResultActivity extends AppCompatActivity implements LoaderManager
 		.LoaderCallbacks<ArrayList<ResultItem>> {
 
-	private String url = "http://www.omdbapi.com/";
+	private static final String TAG = ResultActivity.class.getName();
+
+	private String url = "https://api.themoviedb.org/3/search/movie/";
 	private TextView resultTextView;
 	private ResultItemAdapter resultItemAdapter;
 	private ListView listView;
@@ -26,7 +28,9 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
-		searchText = getIntent().getStringExtra("searchText").trim();
+		if (getIntent().hasExtra("searchText")) {
+			searchText = getIntent().getStringExtra("searchText");
+		}
 		resultItemAdapter = new ResultItemAdapter(this, new ArrayList<ResultItem>());
 		resultTextView = (TextView) findViewById(R.id.resultTextView);
 		listView = (ListView) findViewById(R.id.resultListView);
@@ -47,8 +51,8 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 
 		Uri baseUri = Uri.parse(url);
 		Uri.Builder builder = baseUri.buildUpon();
-		builder.appendQueryParameter("s", searchText);
-
+		builder.appendQueryParameter("api_key", getString(R.string.theMovieDB_api_key));
+		builder.appendQueryParameter("query", searchText);
 		return new ResultLoader(this, builder.toString());
 	}
 

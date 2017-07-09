@@ -14,10 +14,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-/**
- * Created by steven on 12/24/16.
- */
-
 public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 
 	public ResultItemAdapter(Context context, ArrayList<ResultItem> resultList) {
@@ -44,7 +40,7 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 
 		ImageView posterImageView = (ImageView) convertView.findViewById(R.id.imageView_poster);
 		Glide.with(getContext())
-				.load(currentResultItem.getPoster())
+				.load("https://image.tmdb.org/t/p/w500" + currentResultItem.getPoster())
 				.apply(RequestOptions.centerCropTransform())
 				.into(posterImageView);
 

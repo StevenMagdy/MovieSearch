@@ -12,13 +12,9 @@ import java.util.ArrayList;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-/**
- * Created by steven on 12/24/16.
- */
-
 public final class Utils {
 
-	private static final String LOG_TAG = Utils.class.getName();
+	private static final String TAG = Utils.class.getName();
 
 
 	private Utils() {
@@ -39,7 +35,7 @@ public final class Utils {
 			Request request = new Request.Builder().url(urlString).build();
 			return client.newCall(request).execute().body().string();
 		} catch (IOException e) {
-			Log.e(LOG_TAG, "Error retrieving results", e);
+			Log.e(TAG, "Error retrieving results", e);
 			return null;
 		}
 	}
@@ -49,31 +45,31 @@ public final class Utils {
 		try {
 			ArrayList<ResultItem> resultArray = new ArrayList<>();
 			JSONObject baseJsonResponse = new JSONObject(stringResponse);
-			JSONArray jsonResultArray = baseJsonResponse.getJSONArray("Search");
+			JSONArray jsonResultArray = baseJsonResponse.getJSONArray("results");
 			for (int i = 0; i < jsonResultArray.length(); i += 1) {
 				JSONObject jsonCurrentResultItem = jsonResultArray.getJSONObject(i);
-				String currentResultTitle = jsonCurrentResultItem.getString("Title");
-				String currentResultYear = jsonCurrentResultItem.getString("Year");
+				String currentResultTitle = jsonCurrentResultItem.getString("title");
+				String currentResultYear = jsonCurrentResultItem.getString("release_date");
 				String currentResultType = "";
-				switch (jsonCurrentResultItem.getString("Type")) {
-					case "movie":
-						currentResultType = "Movie";
-						break;
-					case "series":
-						currentResultType = "Series";
-						break;
-					case "episode":
-						currentResultType = "Episode";
-						break;
-				}
-				String currentResultId = jsonCurrentResultItem.getString("imdbID");
-				String currentResultPoster = jsonCurrentResultItem.getString("Poster");
+				// switch (jsonCurrentResultItem.getString("Type")) {
+				// 	case "movie":
+				currentResultType = "Movie";
+				// break;
+				// case "series":
+				// 	currentResultType = "Series";
+				// 	break;
+				// case "episode":
+				// 	currentResultType = "Episode";
+				// 	break;
+				// }
+				String currentResultId = jsonCurrentResultItem.getString("id");
+				String currentResultPoster = jsonCurrentResultItem.getString("poster_path");
 				resultArray.add(new ResultItem(currentResultTitle, currentResultYear,
 						currentResultType, currentResultId, currentResultPoster));
 			}
 			return resultArray;
 		} catch (JSONException e) {
-			Log.e(LOG_TAG, "Error Parsing JSON", e);
+			Log.e(TAG, "Error Parsing JSON", e);
 			return null;
 		}
 	}
@@ -82,7 +78,7 @@ public final class Utils {
 		try {
 			return new JSONObject(stringResponse);
 		} catch (JSONException e) {
-			Log.e(LOG_TAG, "Error Parsing JSON", e);
+			Log.e(TAG, "Error Parsing JSON", e);
 			return null;
 		}
 	}

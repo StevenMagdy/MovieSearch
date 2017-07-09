@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, ResultActivity.class);
-				i.putExtra("searchText", searchEditText.getText().toString());
+				i.putExtra("searchText", searchEditText.getText().toString().trim());
 				startActivity(i);
 			}
 		});
