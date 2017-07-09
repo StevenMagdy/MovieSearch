@@ -7,6 +7,7 @@ import android.util.Log;
 import com.steven.moviesearch.models.ResultItem;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;

@@ -35,11 +35,14 @@ public class ResultItem {
 	@SerializedName("original_title")
 	private String originalTitle;
 
-	@SerializedName("genre_ids")
-	private List<Integer> genreIds;
+	// @SerializedName("genre_ids")
+	// private List<Integer> genreIds;
 
 	@SerializedName("backdrop_path")
 	private Object backdropPath;
+
+	@SerializedName("genres")
+	private List<Genre> genres;
 
 	@SerializedName("adult")
 	private boolean adult;
@@ -125,13 +128,13 @@ public class ResultItem {
 		this.originalTitle = originalTitle;
 	}
 
-	public List<Integer> getGenreIds() {
-		return genreIds;
-	}
+	// public List<Integer> getGenreIds() {
+	// 	return genreIds;
+	// }
 
-	public void setGenreIds(List<Integer> genreIds) {
-		this.genreIds = genreIds;
-	}
+	// public void setGenreIds(List<Integer> genreIds) {
+	// 	this.genreIds = genreIds;
+	// }
 
 	public Object getBackdropPath() {
 		return backdropPath;
@@ -139,6 +142,14 @@ public class ResultItem {
 
 	public void setBackdropPath(Object backdropPath) {
 		this.backdropPath = backdropPath;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	}
 
 	public boolean isAdult() {

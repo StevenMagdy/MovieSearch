@@ -2,6 +2,7 @@
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
@@ -17,7 +18,8 @@
 			android:layout_marginLeft="16dp"
 			android:layout_marginTop="16dp"
 			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+			app:layout_constraintTop_toTopOf="parent"
+			tools:src="@mipmap/ic_launcher"/>
 
 		<TextView
 			android:id="@+id/textView_title_year"
@@ -34,7 +36,8 @@
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="@+id/imageView_poster"
 			app:layout_constraintVertical_bias="0.3"
-			app:layout_constraintVertical_chainStyle="packed"/>
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:text="Logan 2017"/>
 
 		<TextView
 			android:id="@+id/textView_imdbRating"
@@ -44,7 +47,8 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="@+id/imageView_star"
 			app:layout_constraintRight_toLeftOf="@+id/textView_imdbRating_overall"
-			app:layout_constraintTop_toTopOf="@+id/imageView_star"/>
+			app:layout_constraintTop_toTopOf="@+id/imageView_star"
+			tools:text="7"/>
 
 		<TextView
 			android:id="@+id/textView_imdbRating_overall"
@@ -63,44 +67,21 @@
 			android:layout_marginRight="4dp"
 			android:scaleType="center"
 			android:src="@drawable/ic_star_black_24dp"
-			app:layout_constraintBottom_toBottomOf="@+id/textView_rated"
+			app:layout_constraintBottom_toBottomOf="@+id/textView_adult"
 			app:layout_constraintRight_toLeftOf="@+id/textView_imdbRating"
-			app:layout_constraintTop_toTopOf="@+id/textView_rated"/>
+			app:layout_constraintTop_toTopOf="@+id/textView_adult"
+			tools:src="@drawable/ic_star_black_24dp"/>
 
 		<TextView
-			android:id="@+id/textView_rated"
+			android:id="@+id/textView_adult"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="7dp"
 			android:textSize="20sp"
+			android:visibility="invisible"
 			app:layout_constraintLeft_toLeftOf="@+id/textView_title_year"
-			app:layout_constraintTop_toBottomOf="@+id/textView_title_year"/>
-
-		<TextView
-			android:id="@+id/textView_runtime_label"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:text="Runtime:"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_director"
-			app:layout_constraintTop_toBottomOf="@+id/textView_director"/>
-
-		<TextView
-			android:id="@+id/textView_runtime"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_runtime_label"
-			app:layout_constraintTop_toBottomOf="@+id/textView_runtime_label"/>
-
-		<TextView
-			android:id="@+id/textView_genre"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_language"
-			app:layout_constraintTop_toBottomOf="@+id/textView_language"/>
-
+			app:layout_constraintTop_toBottomOf="@+id/textView_title_year"
+			tools:text="Adult"/>
 
 		<TextView
 			android:id="@+id/textView_plot"
@@ -111,58 +92,46 @@
 			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintLeft_toLeftOf="@+id/imageView_poster"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/imageView_poster"/>
+			app:layout_constraintTop_toBottomOf="@+id/imageView_poster"
+			tools:text="fjasd  kjhkjhjkl hklhklhklh kjhkhkljh  kjhlsdkjf ljkhkj hkjds hkjhk j  kjhlkj    k jshdlfkjsdkjfhkjhsdkjfhlskdf   jkh kj lkj hkj l "/>
 
 		<TextView
-			android:id="@+id/textView_writer_label"
+			android:id="@+id/textView_genre"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			android:text="Write(s):"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_genre_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_genre_label"
+			tools:text="Action"/>
+
+		<TextView
+			android:id="@+id/textView_genre_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:textStyle="bold"
+			app:layout_constraintLeft_toLeftOf="@+id/textView_plot"
+			app:layout_constraintTop_toBottomOf="@+id/textView_plot"
+			tools:text="Genres"/>
+
+		<TextView
+			android:id="@+id/textView_runtime_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="Runtime:"
+			android:textStyle="bold"
 			app:layout_constraintLeft_toLeftOf="@+id/textView_genre"
 			app:layout_constraintTop_toBottomOf="@+id/textView_genre"/>
 
 		<TextView
-			android:id="@+id/textView_writer"
+			android:id="@+id/textView_runtime"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_writer_label"
-			app:layout_constraintTop_toBottomOf="@+id/textView_writer_label"/>
-
-		<TextView
-			android:id="@+id/textView_actors_label"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:text="Actors:"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_plot"
-			app:layout_constraintTop_toBottomOf="@+id/textView_plot"/>
-
-		<TextView
-			android:id="@+id/textView_actors"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_actors_label"
-			app:layout_constraintTop_toBottomOf="@+id/textView_actors_label"/>
-
-		<TextView
-			android:id="@+id/textView_director_label"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="7dp"
-			android:text="Director:"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_actors"
-			app:layout_constraintTop_toBottomOf="@+id/textView_actors"/>
-
-		<TextView
-			android:id="@+id/textView_director"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			app:layout_constraintLeft_toLeftOf="@+id/textView_director_label"
-			app:layout_constraintTop_toBottomOf="@+id/textView_director_label"/>
+			app:layout_constraintLeft_toLeftOf="@+id/textView_runtime_label"
+			app:layout_constraintTop_toBottomOf="@+id/textView_runtime_label"
+			tools:text="140 min"/>
 
 		<TextView
 			android:id="@+id/textView_language_label"
@@ -170,6 +139,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:text="Language:"
+			android:textStyle="bold"
 			app:layout_constraintLeft_toLeftOf="@+id/textView_runtime"
 			app:layout_constraintTop_toBottomOf="@+id/textView_runtime"/>
 
@@ -179,7 +149,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			app:layout_constraintLeft_toLeftOf="@+id/textView_language_label"
-			app:layout_constraintTop_toBottomOf="@+id/textView_language_label"/>
+			app:layout_constraintTop_toBottomOf="@+id/textView_language_label"
+			tools:text="arabic"/>
 
 	</android.support.constraint.ConstraintLayout>
 
