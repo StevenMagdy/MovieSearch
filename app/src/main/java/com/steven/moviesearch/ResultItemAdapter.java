@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.steven.moviesearch.models.ResultItem;
 
 import java.util.ArrayList;
 
 public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
+
+	private static final String TAG = ResultItemAdapter.class.getName();
+
 
 	public ResultItemAdapter(Context context, ArrayList<ResultItem> resultList) {
 
@@ -35,12 +39,12 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 		titleTextView.setText(currentResultItem.getTitle()
 				+ " (" + currentResultItem.getYear() + ")");
 
-		TextView typeTextView = (TextView) convertView.findViewById(R.id.textView_type);
-		typeTextView.setText(currentResultItem.getType());
+		// TextView typeTextView = (TextView) convertView.findViewById(R.id.textView_type);
+		// typeTextView.setText(currentResultItem.getType());
 
 		ImageView posterImageView = (ImageView) convertView.findViewById(R.id.imageView_poster);
 		Glide.with(getContext())
-				.load("https://image.tmdb.org/t/p/w500" + currentResultItem.getPoster())
+				.load("https://image.tmdb.org/t/p/w500" + currentResultItem.getPosterPath())
 				.apply(RequestOptions.centerCropTransform())
 				.into(posterImageView);
 

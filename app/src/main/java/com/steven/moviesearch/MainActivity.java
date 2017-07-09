@@ -6,11 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+	private static final String TAG = MainActivity.class.getName();
+
 	private EditText searchEditText;
 	private ImageButton searchButton;
+	private Toast toast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +25,16 @@ public class MainActivity extends AppCompatActivity {
 		searchButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(MainActivity.this, ResultActivity.class);
-				i.putExtra("searchText", searchEditText.getText().toString().trim());
-				startActivity(i);
+				if (Utils.isNetworkAvailable(MainActivity.this)) {
+					Intent i = new Intent(MainActivity.this, ResultActivity.class);
+					i.putExtra("searchText", searchEditText.getText().toString().trim());
+					startActivity(i);
+				} else {
+					toast = Toast.makeText(MainActivity.this, "Network Not Available", Toast
+							.LENGTH_SHORT);
+					toast.show();
+
+				}
 			}
 		});
 	}

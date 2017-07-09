@@ -2,25 +2,42 @@ package com.steven.moviesearch;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
-import org.json.JSONObject;
+import com.steven.moviesearch.models.ResultItem;
 
-/**
- * Created by steven on 12/30/16.
- */
+import java.io.IOException;
 
-public class DetailsLoader extends AsyncTaskLoader<JSONObject> {
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
-	private String url;
+public class DetailsLoader extends AsyncTaskLoader<ResultItem> {
 
-	public DetailsLoader(Context context, String url) {
+	private static final String TAG = DetailsLoader.class.getName();
+
+	private int resultId;
+	private Context context;
+
+	public DetailsLoader(Context context, int resultId) {
 		super(context);
-		this.url = url;
+		this.context = context;
+		this.resultId = resultId;
 	}
 
 	@Override
-	public JSONObject loadInBackground() {
-		return Utils.fetchItemDetails(url);
+	public ResultItem loadInBackground() {
+		OkHttpClient okHttpClient = Utils.provideOkHttpClient();
+		Retrofit retrofit = Utils.provideRetrofit(okHttpClient);
+		EndPoints endPoints = retrofit.create(EndPoints.class);
+		Call<ResultItem> resultItemCall =
+				endPoints.getMovieDetails(resultId, context.getString(R.string.theMovieDB_api_key));
+		try {
+			Log.v(TAG, resultItemCall.request().url().toString());
+			return resultItemCall.execute().body();
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	@Override

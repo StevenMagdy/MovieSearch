@@ -1,85 +1,46 @@
 package com.steven.moviesearch;
 
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class Utils {
 
 	private static final String TAG = Utils.class.getName();
 
+	public static final String BASE_URL = "https://api.themoviedb.org/3/";
+	private static OkHttpClient okHttpClient;
+	private static Retrofit retrofit;
 
 	private Utils() {
 	}
 
-	public static ArrayList<ResultItem> fetchSearchResult(String urlString) {
-		return extractResultFromJson(makeHttpRequest(urlString));
-	}
-
-	public static JSONObject fetchItemDetails(String urlString) {
-		return extractDetailsFromJson(makeHttpRequest(urlString));
-	}
-
-	public static String makeHttpRequest(String urlString) {
-
-		OkHttpClient client = new OkHttpClient();
-		try {
-			Request request = new Request.Builder().url(urlString).build();
-			return client.newCall(request).execute().body().string();
-		} catch (IOException e) {
-			Log.e(TAG, "Error retrieving results", e);
-			return null;
+	public static synchronized OkHttpClient provideOkHttpClient() {
+		if (okHttpClient == null) {
+			okHttpClient = new OkHttpClient();
 		}
+		return okHttpClient;
 	}
 
-	public static ArrayList<ResultItem> extractResultFromJson(String stringResponse) {
-
-		try {
-			ArrayList<ResultItem> resultArray = new ArrayList<>();
-			JSONObject baseJsonResponse = new JSONObject(stringResponse);
-			JSONArray jsonResultArray = baseJsonResponse.getJSONArray("results");
-			for (int i = 0; i < jsonResultArray.length(); i += 1) {
-				JSONObject jsonCurrentResultItem = jsonResultArray.getJSONObject(i);
-				String currentResultTitle = jsonCurrentResultItem.getString("title");
-				String currentResultYear = jsonCurrentResultItem.getString("release_date");
-				String currentResultType = "";
-				// switch (jsonCurrentResultItem.getString("Type")) {
-				// 	case "movie":
-				currentResultType = "Movie";
-				// break;
-				// case "series":
-				// 	currentResultType = "Series";
-				// 	break;
-				// case "episode":
-				// 	currentResultType = "Episode";
-				// 	break;
-				// }
-				String currentResultId = jsonCurrentResultItem.getString("id");
-				String currentResultPoster = jsonCurrentResultItem.getString("poster_path");
-				resultArray.add(new ResultItem(currentResultTitle, currentResultYear,
-						currentResultType, currentResultId, currentResultPoster));
-			}
-			return resultArray;
-		} catch (JSONException e) {
-			Log.e(TAG, "Error Parsing JSON", e);
-			return null;
+	public static synchronized Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+		if (retrofit == null) {
+			retrofit = new Retrofit.Builder()
+					.baseUrl(Utils.BASE_URL)
+					.addConverterFactory(GsonConverterFactory.create())
+					.client(okHttpClient)
+					.build();
 		}
+		return retrofit;
 	}
 
-	public static JSONObject extractDetailsFromJson(String stringResponse) {
-		try {
-			return new JSONObject(stringResponse);
-		} catch (JSONException e) {
-			Log.e(TAG, "Error Parsing JSON", e);
-			return null;
-		}
+	public static boolean isNetworkAvailable(Context context) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+				.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		return networkInfo != null && networkInfo.isConnected();
 	}
 }
