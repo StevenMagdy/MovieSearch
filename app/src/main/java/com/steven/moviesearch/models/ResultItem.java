@@ -18,7 +18,7 @@ public class ResultItem {
 	// private boolean video;
 
 	@SerializedName("vote_average")
-	private float voteAverage;
+	private float averageVote;
 
 	@SerializedName("title")
 	private String title;
@@ -80,12 +80,12 @@ public class ResultItem {
 	// 	this.video = video;
 	// }
 
-	public float getVoteAverage() {
-		return voteAverage;
+	public float getAverageVote() {
+		return averageVote;
 	}
 
-	public void setVoteAverage(float voteAverage) {
-		this.voteAverage = voteAverage;
+	public void setAverageVote(float averageVote) {
+		this.averageVote = averageVote;
 	}
 
 	public String getTitle() {

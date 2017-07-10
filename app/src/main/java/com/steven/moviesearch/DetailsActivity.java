@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +22,8 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	private static final String TAG = DetailsActivity.class.getName();
 
 	private int resultId;
-	TextView titleYearTextView, adultTextView, imdbRatingTextView, genreTextView,
-			runtimeTextView, plotTextView, languageTextView;
+	TextView titleYearTextView, adultTextView, averageVoteTextView, genreTextView,
+			runtimeTextView, plotTextView, languageTextView, releaseDateTextView;
 	ImageView posterImageView;
 
 	@Override
@@ -34,11 +35,12 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		}
 		titleYearTextView = (TextView) findViewById(R.id.textView_title_year);
 		adultTextView = (TextView) findViewById(R.id.textView_adult);
-		imdbRatingTextView = (TextView) findViewById(R.id.textView_imdbRating);
+		averageVoteTextView = (TextView) findViewById(R.id.textView_averageVote);
 		genreTextView = (TextView) findViewById(R.id.textView_genre);
 		runtimeTextView = (TextView) findViewById(R.id.textView_runtime);
 		plotTextView = (TextView) findViewById(R.id.textView_plot);
 		languageTextView = (TextView) findViewById(R.id.textView_language);
+		releaseDateTextView = (TextView) findViewById(R.id.textView_releaseDate);
 		posterImageView = (ImageView) findViewById(R.id.imageView_poster);
 		getLoaderManager().initLoader(2, null, this);
 	}
@@ -50,25 +52,46 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 
 	@Override
 	public void onLoadFinished(Loader<ResultItem> loader, ResultItem data) {
-		String titleYear = data.getTitle() + " (" + data.getYear() + ")";
+
+		String titleYear;
+
+		if (!TextUtils.isEmpty(data.getReleaseDate())) {
+			titleYear = data.getTitle() + " (" + data.getYear() + ")";
+			releaseDateTextView.setText(data.getReleaseDate());
+		} else {
+			releaseDateTextView.setText("-");
+			titleYear=data.getTitle();
+		}
+
 		titleYearTextView.setText(titleYear);
-		imdbRatingTextView.setText(String.valueOf(data.getVoteAverage()));
+
+		averageVoteTextView.setText(String.valueOf(data.getAverageVote()));
+
 		if (data.getGenres() != null && data.getGenres().size() > 0) {
-			String com = "";
+			String comma = "";
 			for (Genre genre : data.getGenres()) {
-				genreTextView.append(com);
+				genreTextView.append(comma);
 				genreTextView.append(genre.getName());
-				com = ", ";
+				comma = ", ";
 			}
 		} else {
 			genreTextView.setText("-");
 		}
+
 		runtimeTextView.setText(String.valueOf(data.getRuntime()) + " min");
+
 		plotTextView.setText(data.getOverview());
-		languageTextView.setText(new Locale(data.getOriginalLanguage()).getDisplayLanguage());
+
+		if (!TextUtils.isEmpty(data.getOriginalLanguage())) {
+			languageTextView.setText(new Locale(data.getOriginalLanguage()).getDisplayLanguage());
+		} else {
+			languageTextView.setText("-");
+		}
+
 		if (data.isAdult()) {
 			adultTextView.setVisibility(View.VISIBLE);
 		}
+
 		Glide.with(this)
 				.load("https://image.tmdb.org/t/p/w500" + data.getPosterPath())
 				.apply(RequestOptions.centerCropTransform())
