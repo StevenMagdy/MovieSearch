@@ -2,6 +2,7 @@ package com.steven.moviesearch;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,16 @@ public class ResultItemAdapter extends ArrayAdapter<ResultItem> {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
 		}
-
 		TextView titleTextView = (TextView) convertView.findViewById(R.id.textView_title_year);
-		titleTextView.setText(currentResultItem.getTitle()
-				+ " (" + currentResultItem.getYear() + ")");
+
+		String titleYear;
+
+		if (!TextUtils.isEmpty(currentResultItem.getReleaseDate())) {
+			titleYear = currentResultItem.getTitle() + " (" + currentResultItem.getYear() + ")";
+		} else {
+			titleYear = currentResultItem.getTitle();
+		}
+		titleTextView.setText(titleYear);
 
 		// TextView typeTextView = (TextView) convertView.findViewById(R.id.textView_type);
 		// typeTextView.setText(currentResultItem.getType());
