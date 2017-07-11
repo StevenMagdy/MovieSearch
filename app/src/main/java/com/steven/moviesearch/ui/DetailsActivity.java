@@ -1,4 +1,4 @@
-package com.steven.moviesearch;
+package com.steven.moviesearch.ui;
 
 import android.app.LoaderManager;
 import android.content.Loader;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.steven.moviesearch.loaders.DetailsLoader;
+import com.steven.moviesearch.R;
 import com.steven.moviesearch.models.Genre;
 import com.steven.moviesearch.models.ResultItem;
 

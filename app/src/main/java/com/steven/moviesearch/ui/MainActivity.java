@@ -1,4 +1,4 @@
-package com.steven.moviesearch;
+package com.steven.moviesearch.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.steven.moviesearch.R;
+import com.steven.moviesearch.Utils;
 
 public class MainActivity extends AppCompatActivity {
 

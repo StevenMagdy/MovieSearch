@@ -1,13 +1,14 @@
-package com.steven.moviesearch;
+package com.steven.moviesearch.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
 
+import com.steven.moviesearch.EndPoints;
+import com.steven.moviesearch.R;
+import com.steven.moviesearch.Utils;
 import com.steven.moviesearch.models.ResultItem;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;

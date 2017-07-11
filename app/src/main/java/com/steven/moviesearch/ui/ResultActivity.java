@@ -1,4 +1,4 @@
-package com.steven.moviesearch;
+package com.steven.moviesearch.ui;
 
 import android.app.LoaderManager;
 import android.content.Intent;
@@ -12,6 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.steven.moviesearch.R;
+import com.steven.moviesearch.ResultItemAdapter;
+import com.steven.moviesearch.loaders.ResultLoader;
+import com.steven.moviesearch.Utils;
 import com.steven.moviesearch.models.ResultItem;
 
 import java.util.List;

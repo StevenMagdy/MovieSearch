@@ -22,7 +22,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 	private OnItemClickListener onItemClickListener;
 	Context context;
 
-	interface OnItemClickListener {
+	public interface OnItemClickListener {
 
 		void onItemClick(int position);
 	}

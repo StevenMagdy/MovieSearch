@@ -1,8 +1,11 @@
-package com.steven.moviesearch;
+package com.steven.moviesearch.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.steven.moviesearch.EndPoints;
+import com.steven.moviesearch.R;
+import com.steven.moviesearch.Utils;
 import com.steven.moviesearch.models.ResultItem;
 import com.steven.moviesearch.models.SearchResult;
 
