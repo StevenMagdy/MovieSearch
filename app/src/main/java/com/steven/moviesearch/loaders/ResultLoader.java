@@ -43,7 +43,14 @@ public class ResultLoader extends AsyncTaskLoader<List<ResultItem>> {
 				endPoints.getSearchResult(context.getString(R.string.theMovieDB_api_key),
 						searchQuery);
 		try {
-			return searchResultCall.execute().body().getResults();
+			List<ResultItem> resultItems = searchResultCall.execute().body().getResults();
+			for (int i = 0; i < resultItems.size(); i += 1) {
+				if (!"tv".equals(resultItems.get(i).getMediaType())
+						&& !"movie".equals(resultItems.get(i).getMediaType())) {
+					resultItems.remove(i);
+				}
+			}
+			return resultItems;
 		} catch (IOException e) {
 			return null;
 		}

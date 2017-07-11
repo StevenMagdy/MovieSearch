@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface EndPoints {
 
-	@GET("search/movie")
+	@GET("search/multi")
 	Call<SearchResult> getSearchResult(
 			@Query("api_key") String key,
 			@Query("query") String SearchQuery
@@ -18,6 +18,11 @@ public interface EndPoints {
 
 	@GET("movie/{id}")
 	Call<ResultItem> getMovieDetails(
+			@Path("id") int id,
+			@Query("api_key") String key);
+
+	@GET("tv/{id}")
+	Call<ResultItem> getTVDetails(
 			@Path("id") int id,
 			@Query("api_key") String key);
 }

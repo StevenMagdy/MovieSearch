@@ -41,12 +41,20 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 	public void onBindViewHolder(ResultItemHolder resultItemHolder, int i) {
 		String titleYear;
 		ResultItem currentResultItem = resultItems.get(i);
-		if (!TextUtils.isEmpty(currentResultItem.getReleaseDate())) {
+		if (!TextUtils.isEmpty(currentResultItem.getYear())) {
 			titleYear = currentResultItem.getTitle() + " (" + currentResultItem.getYear() + ")";
 		} else {
 			titleYear = currentResultItem.getTitle();
 		}
 		resultItemHolder.titleTextView.setText(titleYear);
+		switch (currentResultItem.getMediaType()) {
+			case "movie":
+				resultItemHolder.typeTextView.setText("Movie");
+				break;
+			case "tv":
+				resultItemHolder.typeTextView.setText("TV Series");
+				break;
+		}
 		Glide.with(context)
 				.load("https://image.tmdb.org/t/p/w500" + currentResultItem.getPosterPath())
 				.apply(RequestOptions.centerCropTransform())
@@ -75,13 +83,15 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemAdapter.Re
 
 	class ResultItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-		private TextView titleTextView;
 		private ImageView posterImageView;
+		private TextView titleTextView;
+		private TextView typeTextView;
 
 		public ResultItemHolder(View itemView) {
 			super(itemView);
-			titleTextView = (TextView) itemView.findViewById(R.id.textView_title_year);
 			posterImageView = (ImageView) itemView.findViewById(R.id.imageView_poster);
+			titleTextView = (TextView) itemView.findViewById(R.id.textView_title_year);
+			typeTextView = (TextView) itemView.findViewById(R.id.textView_type);
 			itemView.setOnClickListener(this);
 		}
 

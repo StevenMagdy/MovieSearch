@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ResultItem {
 
+	@SerializedName("media_type")
+	private String mediaType;
+
 	@SerializedName("vote_count")
 	private int voteCount;
 
@@ -20,7 +23,7 @@ public class ResultItem {
 	@SerializedName("vote_average")
 	private float averageVote;
 
-	@SerializedName("title")
+	@SerializedName(value = "title", alternate = {"name"})
 	private String title;
 
 	// @SerializedName("popularity")
@@ -53,8 +56,16 @@ public class ResultItem {
 	@SerializedName("runtime")
 	private int runtime;
 
-	@SerializedName("release_date")
+	@SerializedName(value = "release_date", alternate = {"first_air_date"})
 	private String releaseDate;
+
+	public String getMediaType() {
+		return mediaType;
+	}
+
+	public void setMediaType(String mediaType) {
+		this.mediaType = mediaType;
+	}
 
 	public int getVoteCount() {
 		return voteCount;
@@ -185,6 +196,7 @@ public class ResultItem {
 	}
 
 	public String getYear() {
-		return (!TextUtils.isEmpty(releaseDate)) ? releaseDate.substring(0, 4) : null;
+		return ((!TextUtils.isEmpty(releaseDate)) && "movie".equals(mediaType)) ? releaseDate.substring(0,
+				4) : null;
 	}
 }

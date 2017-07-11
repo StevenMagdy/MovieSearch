@@ -50,6 +50,8 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 				if (Utils.isNetworkAvailable(ResultActivity.this)) {
 					Intent i = new Intent(ResultActivity.this, DetailsActivity.class);
 					i.putExtra("resultId", resultItemAdapter.getItem(position).getId());
+					i.putExtra("resultMediaType", resultItemAdapter.getItem(position).getMediaType());
+
 					startActivity(i);
 				} else {
 					toast = Toast.makeText(ResultActivity.this, "Network Not Available", Toast

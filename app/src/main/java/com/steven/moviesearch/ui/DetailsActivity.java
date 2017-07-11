@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.steven.moviesearch.loaders.DetailsLoader;
 import com.steven.moviesearch.R;
+import com.steven.moviesearch.loaders.DetailsLoader;
 import com.steven.moviesearch.models.Genre;
 import com.steven.moviesearch.models.ResultItem;
 
@@ -24,6 +24,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 	private static final String TAG = DetailsActivity.class.getName();
 
 	private int resultId;
+	private String resultMediaType;
 	TextView titleYearTextView, adultTextView, averageVoteTextView, genreTextView,
 			runtimeTextView, plotTextView, languageTextView, releaseDateTextView;
 	ImageView posterImageView;
@@ -34,6 +35,9 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		setContentView(R.layout.activity_details);
 		if (getIntent().hasExtra("resultId")) {
 			resultId = getIntent().getIntExtra("resultId", 0);
+		}
+		if (getIntent().hasExtra("resultMediaType")) {
+			resultMediaType = getIntent().getStringExtra("resultMediaType");
 		}
 		titleYearTextView = (TextView) findViewById(R.id.textView_title_year);
 		adultTextView = (TextView) findViewById(R.id.textView_adult);
@@ -49,7 +53,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 
 	@Override
 	public Loader<ResultItem> onCreateLoader(int id, Bundle args) {
-		return new DetailsLoader(this, resultId);
+		return new DetailsLoader(this, resultId, resultMediaType);
 	}
 
 	@Override
@@ -57,12 +61,15 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 
 		String titleYear;
 
-		if (!TextUtils.isEmpty(data.getReleaseDate())) {
+		if (!TextUtils.isEmpty(data.getYear())) {
 			titleYear = data.getTitle() + " (" + data.getYear() + ")";
+		} else {
+			titleYear = data.getTitle();
+		}
+		if (!TextUtils.isEmpty(data.getReleaseDate())) {
 			releaseDateTextView.setText(data.getReleaseDate());
 		} else {
 			releaseDateTextView.setText("-");
-			titleYear=data.getTitle();
 		}
 
 		titleYearTextView.setText(titleYear);
@@ -81,7 +88,6 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 		}
 
 		runtimeTextView.setText(String.valueOf(data.getRuntime()) + " min");
-
 		plotTextView.setText(data.getOverview());
 
 		if (!TextUtils.isEmpty(data.getOriginalLanguage())) {

@@ -19,12 +19,14 @@ public class DetailsLoader extends AsyncTaskLoader<ResultItem> {
 	private static final String TAG = DetailsLoader.class.getName();
 
 	private int resultId;
+	private String resultMediaType;
 	private Context context;
 
-	public DetailsLoader(Context context, int resultId) {
+	public DetailsLoader(Context context, int resultId, String resultMediaType) {
 		super(context);
 		this.context = context;
 		this.resultId = resultId;
+		this.resultMediaType = resultMediaType;
 	}
 
 	@Override
@@ -32,8 +34,13 @@ public class DetailsLoader extends AsyncTaskLoader<ResultItem> {
 		OkHttpClient okHttpClient = Utils.provideOkHttpClient();
 		Retrofit retrofit = Utils.provideRetrofit(okHttpClient);
 		EndPoints endPoints = retrofit.create(EndPoints.class);
-		Call<ResultItem> resultItemCall =
-				endPoints.getMovieDetails(resultId, context.getString(R.string.theMovieDB_api_key));
+		Call<ResultItem> resultItemCall;
+		if ("movie".equals(resultMediaType)) {
+			resultItemCall = endPoints.getMovieDetails(resultId, context.getString(R.string.theMovieDB_api_key));
+		} else {
+			resultItemCall = endPoints.getTVDetails(resultId, context.getString(R.string
+					.theMovieDB_api_key));
+		}
 		try {
 			return resultItemCall.execute().body();
 		} catch (IOException e) {
