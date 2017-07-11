@@ -34,7 +34,6 @@ public class DetailsLoader extends AsyncTaskLoader<ResultItem> {
 		Call<ResultItem> resultItemCall =
 				endPoints.getMovieDetails(resultId, context.getString(R.string.theMovieDB_api_key));
 		try {
-			Log.v(TAG, resultItemCall.request().url().toString());
 			return resultItemCall.execute().body();
 		} catch (IOException e) {
 			return null;

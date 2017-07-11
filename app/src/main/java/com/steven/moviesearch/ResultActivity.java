@@ -5,16 +5,15 @@ import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.steven.moviesearch.models.ResultItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ResultActivity extends AppCompatActivity implements LoaderManager
@@ -24,7 +23,7 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 
 	private TextView resultTextView;
 	private ResultItemAdapter resultItemAdapter;
-	private ListView listView;
+	private RecyclerView recyclerView;
 	private ProgressBar progressBar;
 	private String searchText;
 	private Toast toast;
@@ -36,13 +35,14 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 		if (getIntent().hasExtra("searchText")) {
 			searchText = getIntent().getStringExtra("searchText");
 		}
-		resultItemAdapter = new ResultItemAdapter(this, new ArrayList<ResultItem>());
+		resultItemAdapter = new ResultItemAdapter(this);
 		resultTextView = (TextView) findViewById(R.id.resultTextView);
-		listView = (ListView) findViewById(R.id.resultListView);
+		recyclerView = (RecyclerView) findViewById(R.id.resultRecyclerView);
 		progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+		resultItemAdapter.setOnItemClickListener(new ResultItemAdapter.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(int position) {
 				if (Utils.isNetworkAvailable(ResultActivity.this)) {
 					Intent i = new Intent(ResultActivity.this, DetailsActivity.class);
 					i.putExtra("resultId", resultItemAdapter.getItem(position).getId());
@@ -54,20 +54,22 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 				}
 			}
 		});
-		listView.setAdapter(resultItemAdapter);
+		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+		recyclerView.setLayoutManager(linearLayoutManager);
+		recyclerView.setAdapter(resultItemAdapter);
 		showProgress();
 		getLoaderManager().initLoader(1, null, this);
 	}
 
 	private void showMessage(String message) {
-		listView.setVisibility(View.GONE);
+		recyclerView.setVisibility(View.GONE);
 		progressBar.setVisibility(View.GONE);
 		resultTextView.setVisibility(View.VISIBLE);
 		resultTextView.setText(message);
 	}
 
 	private void showProgress() {
-		listView.setVisibility(View.GONE);
+		recyclerView.setVisibility(View.GONE);
 		resultTextView.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
 	}
@@ -75,9 +77,8 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 	private void showResults(List<ResultItem> resultItems) {
 		resultTextView.setVisibility(View.GONE);
 		progressBar.setVisibility(View.GONE);
-		listView.setVisibility(View.VISIBLE);
-		resultItemAdapter.clear();
-		resultItemAdapter.addAll(resultItems);
+		recyclerView.setVisibility(View.VISIBLE);
+		resultItemAdapter.swapResults(resultItems);
 	}
 
 	@Override
@@ -99,6 +100,5 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager
 
 	@Override
 	public void onLoaderReset(Loader<List<ResultItem>> loader) {
-		resultItemAdapter.clear();
 	}
 }
